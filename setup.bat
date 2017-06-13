@@ -1,4 +1,5 @@
-::this is batch file for google image downloader
+:: this is batch file for google image downloader
+:: at specifically HW311 at HKU 
 @ECHO OFF
 ECHO.
 ECHO This is the setup simple batch operations for google image downloader
