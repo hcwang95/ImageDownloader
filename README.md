@@ -12,11 +12,11 @@ A image crawler driving Google Chrome to download images from Google Image.
     google chrome on Windows
     python package: selenium requests
 
-## Execute
-### Prepare your ID:
+### Execute
+#### Prepare your ID:
 Store your target id in one file with a name, say 'id.txt'. The sample content is shown below
 
-#### Sample content of id.txt
+##### Sample content of id.txt
     apple
     banana
     ...
@@ -27,6 +27,7 @@ python googleForWindows.py --fileName [fileroot]\id.txt --root testResult --size
 ```
 
 After running, all results will be in 'testResults' folder, with one folder per id and ideal size of images is 100.
+
 ### Note:
 1. The verison of chrome driver may not fit for chrome version, please check your chrome version and download corresponding driver from [here](https://sites.google.com/a/chromium.org/chromedriver/downloads)
 2. The number of output images may not be equal to the size option since there could be some invalid url
