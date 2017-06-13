@@ -105,9 +105,10 @@ class GoogleDownloader():
 			with open(os.path.join(filepath,newName),'r') as myfile:
 				file1 = myfile.read()
 			results = re.findall(r'"ou":"(.+?)"',file1)
-			self.dump_imInfo(folderName, results)
 			self.process.map(multiPara_wrapper,
 							zip(results, [folderName] * len(results), indexList[:len(results)]))
+			fileList = os.listdir(folderName)
+			self.dump_imInfo(folderName, sorted(fileList, key=lambda x: int(x.split('.')[0])), results)
 				
 		# except IOError:
 		# 	print ("can not find the file called:" + str(newName) + "and it may be caused by the bad connection or bad file got from server")
@@ -125,12 +126,14 @@ class GoogleDownloader():
 				pass
 		return os.path.join(self.root, fileName)
 
-	def dump_imInfo(self, folderName, results):
+	def dump_imInfo(self, folderName, fileList, results):
 		with open(os.path.join(folderName, 'imInfo.csv'), 'w', newline='') as csvfile:
 			writer = csv.writer(csvfile, delimiter=',')
 			writer.writerow(['img_name', 'uuid', 'url'])
-			for url in results:
-				writer.writerow([str(results.index(url)+1),str(uuid.uuid4().hex),str(url)])
+			for file in fileList:
+				index = int(file.split('.')[0])
+				writer.writerow([index,str(uuid.uuid4().hex),str(results[index-1])])
+
 # function to get one image specified with one url
 def _download(url, folderName, index):
 	imgUrl = url
