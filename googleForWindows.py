@@ -185,12 +185,23 @@ if __name__ == '__main__':
 	args = arg_parse()
 	start = time.time()
 	assert args.fileName != None, "Name list cannot be None!"
+	# get all id as type of list of str
 	nameList = readFile(args.fileName)
+
+	# init processPool and browser driver
 	processPool = multiprocessing.Pool(args.process)
 	browser = webdriver.Chrome()
+
+	# check if the output folder exists or not
+	if not os.path.exists(args.root):
+		os.mkdir(args.root)
+
+	# construct the downloader instance
 	downloader = GoogleDownloader(nameList = nameList, root = args.root, size = args.size, 
 									process = processPool, browser = browser)
 	downloader.run()
+
+	# finish running
 	end = time.time()
 	browser.close()
 	print ('task end, time consumed:', end - start, 'seconds')
