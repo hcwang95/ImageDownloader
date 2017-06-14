@@ -13,6 +13,7 @@ import argparse
 import imghdr
 import uuid
 import csv
+import codecs
 
 # wrapper for map function
 def multiPara_wrapper(args):
@@ -64,7 +65,7 @@ class GoogleDownloader():
 		if len(subcategory[1:]) >= 1:
 			for pt in subcategory[1:]:
 				wordSearch += "+" + pt
-		print (wordSearch)
+		print (wordSearch.encode('utf-8'))
 		total = int(self.size / 100)
 		
 		openBrowserRecursively(total, wordSearch, self.browser)
@@ -102,7 +103,7 @@ class GoogleDownloader():
 		folderName = self.makeFolder(name)
 		for i in range(total):
 			newName = name + '_' + str(i) +'.txt'
-			with open(os.path.join(filepath,newName),'r') as myfile:
+			with codecs.open(os.path.join(filepath,newName),'r',  encoding="utf-8") as myfile:
 				file1 = myfile.read()
 			results = re.findall(r'"ou":"(.+?)"',file1)
 			self.process.map(multiPara_wrapper,
