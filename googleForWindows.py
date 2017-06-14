@@ -99,20 +99,20 @@ class GoogleDownloader():
 
 		# after rename and locate the url list, then we conduct the final crawling part
 		indexList = [i for i in range(1, 101)]
-		# try:
-		folderName = self.makeFolder(name)
-		for i in range(total):
-			newName = name + '_' + str(i) +'.txt'
-			with codecs.open(os.path.join(filepath,newName),'r',  encoding="utf-8") as myfile:
-				file1 = myfile.read()
-			results = re.findall(r'"ou":"(.+?)"',file1)
-			self.process.map(multiPara_wrapper,
-							zip(results, [folderName] * len(results), indexList[:len(results)]))
-			fileList = os.listdir(folderName)
-			self.dump_imInfo(folderName, sorted(fileList, key=lambda x: int(x.split('.')[0])), results)
-				
-		# except IOError:
-		# 	print ("can not find the file called:" + str(newName) + "and it may be caused by the bad connection or bad file got from server")
+		try:
+			folderName = self.makeFolder(name)
+			for i in range(total):
+				newName = name + '_' + str(i) +'.txt'
+				with codecs.open(os.path.join(filepath,newName),'r',  encoding="utf-8") as myfile:
+					file1 = myfile.read()
+				results = re.findall(r'"ou":"(.+?)"',file1)
+				self.process.map(multiPara_wrapper,
+								zip(results, [folderName] * len(results), indexList[:len(results)]))
+				fileList = os.listdir(folderName)
+				self.dump_imInfo(folderName, sorted(fileList, key=lambda x: int(x.split('.')[0])), results)
+					
+		except IOError:
+			print ("can not find the file called:" + str(newName) + "and it may be caused by the bad connection or bad file got from server")
 
 	def makeFolder(self, fileName):
 		try:
