@@ -1,11 +1,9 @@
-import urllib
 import requests
 import os
 import re
 import time
 from selenium import webdriver
 import multiprocessing
-import random
 import sys
 from socket import error as SocketError
 import errno
@@ -159,7 +157,7 @@ def _download(url, folderName, index):
 # basic funciton to get id list
 def readFile(filename):
 	_list=[]
-	with open (filename, 'r') as fin:
+	with codecs.open (filename, 'r', encoding='utf-8') as fin:
 		line = fin.readline()
 		while line:
 			_list.append(str(line).rstrip())
@@ -171,7 +169,7 @@ def arg_parse():
 	parser = argparse.ArgumentParser(description='Argument Parser for google image downloader')
 	parser.add_argument('--root', help='output file root', 
 							default='results', type=str)
-	parser.add_argument('--fileName', help='the name of the file which constain the id', 
+	parser.add_argument('--filename', help='the name of the file which constain the id', 
 							default='testlist.txt', type=str)
 	parser.add_argument('--size', help='number of image per id', 
 							default=100, type=int)
@@ -184,9 +182,9 @@ def arg_parse():
 if __name__ == '__main__':
 	args = arg_parse()
 	start = time.time()
-	assert args.fileName != None, "Name list cannot be None!"
+	assert args.filename != None, "Name list cannot be None!"
 	# get all id as type of list of str
-	nameList = readFile(args.fileName)
+	nameList = readFile(args.filename)
 
 	# init processPool and browser driver
 	processPool = multiprocessing.Pool(args.process)
