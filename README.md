@@ -45,3 +45,4 @@ After running, all results will be in 'testResults' folder, with one folder per 
 1. The verison of chrome driver may not fit for chrome version, please check your chrome version and download corresponding driver from [here](https://sites.google.com/a/chromium.org/chromedriver/downloads)
 2. The number of output images may not be equal to the size option since there could be some invalid url
 3. There are some important number to customize for your better experience, please check googleForWindows.py to adapt it.
+4. Note that the basic logic of this downloader is: Browser -> get URLs -> employ python multiprocessing to get image. So REMEMBER to specify your chrome default download folder in the code. [TODO]
