@@ -5,7 +5,7 @@ Google Image Downloader
 A image crawler driving Google Chrome to download images from Google Image.
 
 
-## Getting Started For the Windows version
+## Getting Started
 
 ### Dependency:
     python3 or python2
@@ -29,10 +29,13 @@ Store your target id in one file with a name, say 'id.txt'. The sample content i
     banana
     ...
 
-Then execute the downloader by
+Then execute the downloader by 
 ```
-python googleForWindows.py --filename [fileroot]\id.txt --root testResult --size 100
+python googleForWindows.py --filename [fileroot]\id.txt --root testResult --size 100 # for Windows
+# or 
+python googleForLinux.py --filename [fileroot]\id.txt --root testResult --size 100 # for Linux
 ```
+
 
 One can get the argument by
 ```
@@ -45,4 +48,3 @@ After running, all results will be in 'testResults' folder, with one folder per 
 1. The verison of chrome driver may not fit for chrome version, please check your chrome version and download corresponding driver from [here](https://sites.google.com/a/chromium.org/chromedriver/downloads)
 2. The number of output images may not be equal to the size option since there could be some invalid url
 3. There are some important number to customize for your better experience, please check googleForWindows.py to adapt it.
-4. Note that the basic logic of this downloader is: Browser -> get URLs -> employ python multiprocessing to get image. So REMEMBER to specify your chrome default download folder in the code. [TODO]
