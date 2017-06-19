@@ -29,17 +29,15 @@ Store your target id in one file with a name, say 'id.txt'. The sample content i
     banana
     ...
 
-Then execute the downloader by 
+Then execute the downloader by (For windows and Linux)
 ```
-python googleForWindows.py --filename [fileroot]\id.txt --root testResult --size 100 # for Windows
-# or 
-python googleForLinux.py --filename [fileroot]\id.txt --root testResult --size 100 # for Linux
+python googleImageDownload.py --filename [fileroot]\id.txt --root testResult --size 100 
 ```
 
 
 One can get the argument by
 ```
-python googleForWindows.py --help
+python googleImageDownload.py --help
 ```
 
 After running, all results will be in 'testResults' folder, with one folder per id and ideal size of images is 100.
