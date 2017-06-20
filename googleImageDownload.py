@@ -98,12 +98,12 @@ class GoogleDownloader():
 
 				if i == 0:
 					if "f.txt" in os.listdir(filepath):
-						print ("change name to be " , newName)
+						print ("change name to be " , newName.encode('utf-8'))
 						os.rename(os.path.join(filepath,'f.txt'), os.path.join(filepath,newName))
 				else:
 					fileSpecial = "f (%d).txt" % i
 					if fileSpecial in os.listdir(filepath):
-						print ("change name to be " , newName)
+						print ("change name to be " , newName.encode('utf-8'))
 						os.rename(os.path.join(filepath,fileSpecial), os.path.join(filepath,newName))
 					else:
 						print ("fail to find the file")
@@ -127,7 +127,7 @@ class GoogleDownloader():
 				self.dump_imInfo(folderName, sorted(fileList, key=lambda x: int(x.split('.')[0])), results)
 					
 		except IOError:
-			print ("can not find the file called:" + str(newName) + "and it may be caused by the bad connection or bad file got from server")
+			print ("can not find the file called:" + str(newName).encode('utf-8') + "and it may be caused by the bad connection or bad file got from server")
 
 	def makeFolder(self, fileName):
 		try:
