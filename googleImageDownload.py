@@ -127,7 +127,7 @@ class GoogleDownloader():
 				self.dump_imInfo(folderName, sorted(fileList, key=lambda x: int(x.split('.')[0])), results)
 					
 		except IOError:
-			print ("can not find the file called:" + str(newName).encode('utf-8') + "and it may be caused by the bad connection or bad file got from server")
+			print ("can not find the file called:" , str(newName).encode('utf-8') , "and it may be caused by the bad connection or bad file got from server")
 
 	def makeFolder(self, fileName):
 		try:
@@ -143,12 +143,15 @@ class GoogleDownloader():
 		return os.path.join(self.root, fileName)
 
 	def dump_imInfo(self, folderName, fileList, results):
-		with open(os.path.join(folderName, 'imInfo.csv'), 'w', newline='') as csvfile:
-			writer = csv.writer(csvfile, delimiter=',')
-			writer.writerow(['img_name', 'uuid', 'url'])
-			for file in fileList:
-				index = int(file.split('.')[0])
-				writer.writerow([index,str(uuid.uuid4().hex),str(results[index-1])])
+		try:
+			with open(os.path.join(folderName, 'imInfo.csv'), 'w', newline='') as csvfile:
+				writer = csv.writer(csvfile, delimiter=',')
+				writer.writerow(['img_name', 'uuid', 'url'])
+				for file in fileList:
+					index = int(file.split('.')[0])
+					writer.writerow([index,str(uuid.uuid4().hex),str(results[index-1])])
+		except:
+			print('error happens when writing imageInfo, maybe caused by duplicated name')
 
 # function to get one image specified with one url
 def _download(url, folderName, index):
