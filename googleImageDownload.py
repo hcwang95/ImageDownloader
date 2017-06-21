@@ -13,7 +13,7 @@ import uuid
 import csv
 import codecs
 import platform
-
+import downloader
 
 # define default chrome download path
 global default_download_path
@@ -26,9 +26,6 @@ if re.search('windows', platform.platform(), re.IGNORECASE):
 	isWindows = True
 else:
 	isWindows = False
-# wrapper for map function
-def multiPara_wrapper(args):
-	return _download(*args)
 
 # use selenium to get the list of URLs
 def openBrowserRecursively(total, idName, browser):
@@ -121,7 +118,7 @@ class GoogleDownloader():
 				with codecs.open(os.path.join(filepath,newName),'r',  encoding="utf-8") as myfile:
 					file1 = myfile.read()
 				results = re.findall(r'"ou":"(.+?)"',file1)
-				self.process.map(multiPara_wrapper,
+				self.process.map(_download,
 								zip(results, [folderName] * len(results), indexList[:len(results)]))
 				fileList = os.listdir(folderName)
 				self.dump_imInfo(folderName, sorted(fileList, key=lambda x: int(x.split('.')[0])), results)
@@ -154,13 +151,13 @@ class GoogleDownloader():
 			print('error happens when writing imageInfo, maybe caused by duplicated name')
 
 # function to get one image specified with one url
-def _download(url, folderName, index):
-	imgUrl = url
+def _download(args):
+	url, folderName, index = args
 	session = setupSession()
 	try:
 		# time out is another parameter tuned
 		# fit for the network about 10Mb
-		image = session.get(imgUrl, timeout = 5)
+		image = session.get(url, timeout = 5)
 		imageName = str(index)
 		with open(os.path.join(folderName, imageName),'wb') as fout:
 			fout.write(image.content)
@@ -224,9 +221,9 @@ if __name__ == '__main__':
 		os.mkdir(args.root)
 
 	# construct the downloader instance
-	downloader = GoogleDownloader(nameList = nameList, root = args.root, size = args.size, 
+	gdownloader = GoogleDownloader(nameList = nameList, root = args.root, size = args.size, 
 									process = processPool, browser = browser)
-	downloader.run()
+	gdownloader.run()
 
 	# finish running
 	end = time.time()
