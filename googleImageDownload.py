@@ -201,7 +201,7 @@ if __name__ == '__main__':
 	start = time.time()
 	assert args.filename != None, "Name list cannot be None!"
 	# get all id as type of list of str
-	nameList = readFile(args.filename)
+	nameList = list(set(readFile(args.filename)))
 
 	# init processPool and browser driver
 	processPool = multiprocessing.Pool(args.process)
